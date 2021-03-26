@@ -1,2 +1,2 @@
 # SASSY
-SASSY-ARES code repository 
+This code uses a lidar range finder than serially outputs the range in mm over the usb port
