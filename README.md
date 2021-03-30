@@ -1,6 +1,7 @@
 # SASSY
-SASSY-ARES READY FOR DEPLOYMENT BUILD
+SASSY-ARES mozburg LIDAR
 
-This Branch is for the core of the code, and any code ready to be used on the drill in testing 
+this branch is the working prototype of the lidar code using pololus library
+based on the adafruit library
 
-all code in this branch works and tells you how it works
+works on an esp8266 NodeMCU
