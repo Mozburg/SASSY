@@ -1,6 +1,5 @@
 # SASSY
-SASSY-ARES READY FOR DEPLOYMENT BUILD
+SASSY-ARES stepper motors coded by HUmood
 
-This Branch is for the core of the code, and any code ready to be used on the drill in testing 
+This branch was originally uploaded as a .raw and was integraterd into a branch by Mozburg
 
-all code in this branch works and tells you how it works
