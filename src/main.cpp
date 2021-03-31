@@ -8,7 +8,9 @@
 #include <Wire.h>
 #include <VL53L0X.h>
 #include <ESP8266WiFi.h>
+//##include <arduino.h>
 
+//define pixel 20000
 VL53L0X sensor;
 
 #define HIGH_SPEED
