@@ -1,8 +1,5 @@
--IC:/Users/Mozburg/Documents/GitHub/SASSY/include
--IC:/Users/Mozburg/Documents/GitHub/SASSY/src
--IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src
--IC:/Users/Mozburg/Documents/GitHub/SASSY/.pio/libdeps/nodemcuv2/VL53L0X
--IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/Wire
+-IC:/Users/Mozburg/Documents/GitHub/SASSY/SASSY/include
+-IC:/Users/Mozburg/Documents/GitHub/SASSY/SASSY/src
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/cores/esp8266
@@ -19,6 +16,7 @@
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SSDP
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SdFat/src
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src
+-IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFiMesh/src
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266httpUpdate/src
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266mDNS/src
@@ -34,6 +32,7 @@
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/SoftwareSerial/src
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/TFT_Touch_Shield_V2
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/Ticker/src
+-IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/Wire
 -IC:/Users/Mozburg/.platformio/packages/framework-arduinoespressif8266/libraries/esp8266/src
 -IC:/Users/Mozburg/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2
 -IC:/Users/Mozburg/.platformio/packages/toolchain-xtensa/xtensa-lx106-elf/include/c++/4.8.2/xtensa-lx106-elf
