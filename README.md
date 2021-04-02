@@ -10,3 +10,8 @@ UNO -- pin 3
 MEGA -- pin 9
 
 requires serial interface via labview or putty-esque 
+
+Rev1.0.1 Changes
+1) Changed acceleration key from T->a
+2) Changed decceleration key from F->d
+3) Implemented emergency stop button, s
