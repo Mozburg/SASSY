@@ -2,7 +2,7 @@
 This file uses an arduino to control the drills speed using serial data for incremental up and down speed changes, 
 this code was working and tested on March 12 at 12pm
 
-Jonathon wrote this code with help from alan and Brandon has looked over the code 
+Jonathan wrote this code with help from alan and Brandon has looked over the code 
 
 code currently works on both arduino mega and uno 
 
