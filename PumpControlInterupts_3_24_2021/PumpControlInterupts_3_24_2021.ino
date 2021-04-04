@@ -1,3 +1,5 @@
+#include <avr/io.h>
+
 /*
  Pump Control with analog comparator, interrupt & ACO flag
 
@@ -11,12 +13,11 @@ The circuit:
 * 5V, GND (X2), Pin 7 unconnected (assumed value 1000 as comparator reference), Pin 6 Water Sensor input to arduino.
 */
 
-#define Pump 9
+#define Pump 52 //GPIO pin 52
 
 void setup() {
  // initialize serial communications at 9600 bps:
  Serial.begin(9600);
-
  ACSR =
    (0 << ACD) |    // Analog Comparator: Enabled
    (0 << ACBG) |   // Analog Comparator Bandgap Select: AIN0 is applied to the positive input
