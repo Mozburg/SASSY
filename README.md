@@ -1,6 +1,5 @@
 # SASSY
-SASSY-ARES READY FOR DEPLOYMENT BUILD
+SASSY-ARES Alan made code
 
-This Branch is for the core of the code, and any code ready to be used on the drill in testing 
-
-all code in this branch works and tells you how it works
+This code is for sensing the current from the drill
+Sunday April 3
