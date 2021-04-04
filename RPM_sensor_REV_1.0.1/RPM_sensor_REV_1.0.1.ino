@@ -49,15 +49,17 @@ void setup() {
           string = "";
           while(!Serial){}
           pinMode(A5, INPUT); // input init
+          pinMode(A3, INPUT); // input init
           pinMode(A1, INPUT); // input init
           Serial.begin(115200); // setup serial
           sei();
         }
 void loop() {
   //newspeed = random(0,65); //***********simulating external command to change speed. Value is an integer 0-65 from normalized RPM values.
-    Serial.println(currentRead);
+    //Serial.println(currentRead);
     Serial.println(wobRead);
-    Serial.println(calculatedRPM);
+    //Serial.println(calculatedRPM);
+    //Serial.println(rpmSensor.GetRPM());
   //currentSpeed = speedCorrect(currentSpeed, newspeed); //takes current rpm data and the desired speed to establish new speed. Will not need this function to return the current value once integrated
   //with RPM sensor.
   }
@@ -78,7 +80,7 @@ void sensor_init(void)
   OCR0A = 24;                       //Top count is 16M/(1024*640), for 650Hz sampling at 1024 prescale value (rounded down).
   TIMSK0 |= (1<<OCIE0A);            //enable timer mask interrupts
   TCCR0A |= (1<<WGM01);             //CTC mode
-  TCCR0B |= (1<<CS02) | (1<<CS00);  //Prescale value 1024 
+  TCCR0B |= (1<<CS02) | (1<<CS00);  //Prescale value 1024
 }
 
 ISR(TIMER0_COMPA_vect){
@@ -86,9 +88,9 @@ ISR(TIMER0_COMPA_vect){
     currentRead = currentSensor.GetCurrent();
     wobRead = wobSensor.GetLoad();
     rpmRead = rpmSensor.GetRPM();
-    if(count < frequency)                //Loops for 1s total 
+    if(count < frequency)                //Loops for 1s total
     {
-                                              
+
       if(t < period)                             //Loops for 1s/frequency
       {
           if(rpmRead && !hist) rotation += 0.25;  //Increases rotation each time voltage surpasses threshold
