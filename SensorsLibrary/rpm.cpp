@@ -15,25 +15,28 @@ int RPM::GetRPM(void) {
 	float mid = .5;
 	
 	//max set
-	if(val >= max){
-		max = val;
-	}
+	max = val*(val >= max) + max*(val <= max);
+	
 	//min set
-	if(val <= min){
-		min = val;
-	}
+	min = val*(val <= min) + min*(val >= min);
+	
 	//mid set
         mid = (max + min) / 2;
-//-------------------------------------------------------------------------------------
+
 	//1-0 mid check
-    if(val > mid) {
+	return (val > mid); 
+//-------------------------------------------------------------------------------------
+}
+	
+	
+/*    if(val > mid) {
 		return 1; //Increases rotation each pulse
     }
 
 	else {
 		return 0;
 	}
-}
+
 /*
 inline void __attribute__ ((constructor)) initLibrary(void) {
  //
