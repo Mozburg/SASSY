@@ -8,8 +8,25 @@ RPM::RPM() {
 
 int RPM::GetRPM(void) {
 	float val = analogRead(A5);  //Value is high if reflective tape is infront of sensor
-
-    if(val > 500.0) {
+//----------------------------------------------------------------------------------mozburg
+	//buffer vars
+	float max = 1;
+	float min = 0;
+	float mid = .5;
+	
+	//max set
+	if(val >= max){
+		max = val;
+	}
+	//min set
+	if(val <= min){
+		min = val;
+		{
+	//mid set
+        mid = (max + min) / 2;
+//-------------------------------------------------------------------------------------
+	//1-0 mid check
+    if(val > mid) {
 		return 1; //Increases rotation each pulse
     }
 
@@ -26,7 +43,7 @@ inline void __attribute__ ((constructor)) initLibrary(void) {
 }
 inline void __attribute__ ((destructor)) cleanUpLibrary(void) {
  //
- // Function that is called when the library is »closed«.
+ // Function that is called when the library is Â»closedÂ«.
  //
     printf("Library is exited\n"); 
 }*/
