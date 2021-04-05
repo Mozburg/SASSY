@@ -88,9 +88,24 @@ ISR(TIMER0_COMPA_vect){
     currentRead = currentSensor.GetCurrent();
     wobRead = wobSensor.GetLoad();
     rpmRead = rpmSensor.GetRPM();
+          
+          
+    rotation += 0.25 * ((count < frequency) && (t < period) &&  (rpmRead && !hist));
+    hist = rpmRead * ((count < frequency) && (t < period)) + hist * ((count < frequency) && !(t < period)) + hist * !(count < frequency);
+    t += ((count < frequency) && (t < period));
+
+    t = t * ((count < frequency) && (t < period)) + t * !(count < frequency);
+    rate += (rotation * 60.0) * ((count < frequency) && !(t < period));
+    rotation = rotation * !((count < frequency) && !(t < period));
+    count += ((count < frequency) && !(t < period));
+
+    count = count * (count < frequency);
+    calculatedRPM = rate * !(count < frequency) + calculatedRPM * (count < frequency);
+    rate = rate * (count < frequency);
+          
+    /*   original code, tested and works
     if(count < frequency)                //Loops for 1s total
     {
-
       if(t < period)                             //Loops for 1s/frequency
       {
           if(rpmRead && !hist) rotation += 0.25;  //Increases rotation each time voltage surpasses threshold
@@ -108,6 +123,6 @@ ISR(TIMER0_COMPA_vect){
       count = 0;
       calculatedRPM = rate;
       rate = 0.0;
-    }
+    }*/
     sei();
 }
