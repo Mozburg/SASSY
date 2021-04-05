@@ -89,7 +89,7 @@ ISR(TIMER0_COMPA_vect){
     wobRead = wobSensor.GetLoad();
     rpmRead = rpmSensor.GetRPM();
           
-          
+     //boolean alegra to replace conditionals
     rotation += 0.25 * ((count < frequency) && (t < period) &&  (rpmRead && !hist));
     hist = rpmRead * ((count < frequency) && (t < period)) + hist * ((count < frequency) && !(t < period)) + hist * !(count < frequency);
     t += ((count < frequency) && (t < period));
