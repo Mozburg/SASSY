@@ -12,4 +12,5 @@ F = Slow down
 R = reverse direction
 
 *NOTE: The stepper motors will move even if the duty cycle for PWM is set to zero. Ensure motors are aligned and ready to move  before powering the arduino and uploading the code.
+DOwnload Library branch for headers
 
