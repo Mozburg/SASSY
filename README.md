@@ -10,3 +10,5 @@ WORKING_DrillandSystemCurrent is the most up to date version of the current sens
 
 A1 measures drill current.
 A2 measures system current.
+
+Download the Library branch as well for headers
