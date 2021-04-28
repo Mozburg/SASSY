@@ -1,8 +1,11 @@
 
 # SASSY
-SASSY-ARES READY FOR DEPLOYMENT BUILD
+Arduino_Timers_Setup uploaded by Jonathan.
 
-This Branch is for the core of the code, and any code ready to be used on the drill in testing 
+function parameters:
+timer_init(timer #, pwm op_frequency, duty_cycle, pre-scalar)
 
-all code in this branch works and tells you how it works
+duty_cycle is a decimal between 0 and 1.
+
+Still a work in progress.
 ===============================================================================================
