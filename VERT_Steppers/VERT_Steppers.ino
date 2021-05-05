@@ -30,7 +30,7 @@ bool wobOverLoad = false;
 const unsigned long eventInterval = 5000;
 unsigned long previousTime = 0;
 Loadcell wobSensor;
-
+int githubtest_commit;
 void setup() {
           fastp_init(); //set registers for fast pwm, mode 7, non-inverting
           drill_init(); //Set top value for 65Hz operation, initialize at 0% duty cycle, 
