@@ -1,50 +1,37 @@
 
 #include <avr/io.h>
 #include <loadcell.h>
-#define PI 3.1415926535897932384626433832795
-
+/* defines for direction variable, controlling stepper direction */
+#define GO_up LOW
+#define GO_down HIGH
+/*--------------------------------------------------------------*/
 /*This code uses Arduino Uno digital pwm pin 3 and gnd to output a pwm signal through the solidstate relay that controls the drill speed.
 Can substitute an LED or probably a servo motor for low power testing. Need to take rpm data normalized between integers 0 - 120 to establish 
-current and newspeed values. 
+current and newSpeed values. 
 */
 //has incremental speed controls
-float Duty = 3*PI/2; //Initializes the Duty Cycle at 0%
-float OnCount; int TopCount = 255; int On;
-//======== Simulating RPM Sensor Feedback ================
-float rpmMax = 1000; //arbitrary value
-float rpm = 0; //current value (arbitrary)
-//float rpmDes = 350; //Desired value (arbitrary)
-//========================================================
-int newspeed = 0;
-int current; 
-int DcShift;
+int topCount = 255; int On;
+//==============Top Count and Bottom count calculation variables======
+int newSpeed = 0; //on initialization, top count is set to newSpeed. Top count of 0 makes steppers not move.
 float tempFloat = 0;
-int comPortInitialization;
-uint8_t direction = LOW;
-int load_cell_callibration = 0;
-int tempInt = 0;
-int top_switch = 0;
-int bottom_switch = 0;
+int tempInt = 0; //used for bottom count of OCR2B calculation
+//==============WOB calculation variables ====================
 float wobRead;
 bool wobOverLoad = false;
-const unsigned long eventInterval = 5000;
-unsigned long previousTime = 0;
 Loadcell wobSensor;
-int githubtest_commit;
+uint8_t direction = go_down;
 void setup() {
           fastp_init(); //set registers for fast pwm, mode 7, non-inverting
           drill_init(); //Set top value for 65Hz operation, initialize at 0% duty cycle, 
           sensor_init();
-          //pinMode(6, OUTPUT);
-          //digitalWrite(6, LOW);
           Serial.begin(115200); // setup serial
           pinMode(36, OUTPUT);
+          //pinMode(x, OUTPUT); //preparing for horizontal integration
           digitalWrite(36,direction);
-          //load_cell_callibration = wobSensor.GetLoad();
         }
 
 void loop() {
-  /* Updates frequently */
+  /* updates frequently */
     if(Serial.available()>0)
   {
     char incomingByte = Serial.read();
@@ -52,11 +39,11 @@ void loop() {
     
     if(incomingByte == 'A')
     {
-      SpeedUp();
+      speedup();
     }
     if(incomingByte == 'F')
     {
-      SlowDown();
+      Slowdown();
     }
     if(incomingByte == 'S')
     {
@@ -72,67 +59,59 @@ void loop() {
     }
     if(incomingByte == 'U')
     {
-      UP();
+      up();
     }
     if(incomingByte == 'D')
     {
-      DOWN();
+      down();
     }
   }
-//  top_switch = digitalRead(30);
-//  bottom_switch = digitalRead(32);
-//  if(top_switch == 1){
-//    DOWN();//sends it down
-//  }
-//  if(bottom_switch == 1){
-//    UP();
-//  }
     //Serial.println(wobRead);
-    OCR2A = newspeed; //Top value for this button
+    OCR2A = newSpeed; //Top value for this button
     tempFloat = OCR2A/2;
     tempInt = int(tempFloat);
     OCR2B = tempInt; //Ontime of the 65Hz signal Initialized to zero
 }
-void SlowDown(){
-  if(newspeed >= 255)
+void Slowdown(){
+  if(newSpeed >= 255)
   {
-    newspeed = 255;
+    newSpeed = 255;
   }
   else{
-    newspeed = newspeed + 20;
+    newSpeed = new_speed + 20;
   }
   //incomingByte = NULL;
 }
-void SpeedUp(){
-  if(newspeed <= 20){
-    newspeed = 20;
+void speedup(){
+  if(newSpeed <= 20){
+    newSpeed = 20;
   }
   else{
-    newspeed = newspeed - 20;
+    newSpeed = newSpeed - 20;
   }
   //incomingByte = NULL;
   
 }
 void Stop(){
-  newspeed = 0;
+  newSpeed = 0;
   //incomingByte = NULL 
 }
 void maxSpeed(){
-  newspeed = 20;
+  newSpeed = 20;
   //incomingByte = NULL 
 }
 void slowestSpeed(){
-  newspeed = 255;
+  newSpeed = 255;
   //incomingByte = NULL 
 }
-void DOWN(){
+void down(){
   //digitalWrite(6, LOW);
-  digitalWrite(36,LOW); 
+  digitalWrite(36,GO_up); 
 }
-void UP()
+void up()
 {
   //digitalWrite(6, HIGH);
-  digitalWrite(36, HIGH);
+  digitalWrite(36, GO_down);
 }
     
 
@@ -147,8 +126,8 @@ void UP()
 }
 
 void drill_init (void){
-    OCR2A = TopCount; //Top value for this button
-    tempFloat = TopCount/2;
+    OCR2A = topCount; //Top value for this button
+    tempFloat = topCount/2;
     tempInt = int(tempFloat);
     OCR2B = tempInt; //Ontime of the 65Hz signal Initialized to zero
     TCCR2B |= (1<<CS21); //Pre-scale = 8   16M/(8*256) = 7.8125kHz and start the clock
@@ -168,11 +147,11 @@ ISR(TIMER0_COMPA_vect){
     cli();
     wobRead = wobSensor.GetLoad();
 //    if (wobRead >= 120){
-//      UP();
+//      up();
 //      wobOverLoad = true;
 //    }
 //    else if(wobOverLoad == true && wobRead <= 100){
-//      DOWN();
+//      down();
 //      wobOverLoad = false; //wobOverLoad flag ensures this command won't overwrite our current controls.
 //    }
     
