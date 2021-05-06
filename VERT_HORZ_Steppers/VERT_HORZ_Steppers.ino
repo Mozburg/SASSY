@@ -1,6 +1,8 @@
 
 #include <avr/io.h>
 #include <loadcell.h>
+//STILL NEEDS TO INTEGRATE TIMER FUNCTION CODE TO ADD SECOND TIMER
+//POSSIBLY USE TOGGLE PINS THAT WAY WE CAN USE SAME TIMERS
 /* defines for vertDirection variable, controlling stepper vertDirection */
 #define GO_UP LOW
 #define GO_DOWN HIGH
@@ -27,6 +29,8 @@ void setup() {
           sensor_init();
           Serial.begin(115200); // setup serial
           pinMode(36, OUTPUT);
+          //pinMode(x, OUTPUT); //preparing for horizontal integration
+          //digitalWrite(x, horzDirection);
           digitalWrite(36,vertDirection);
         }
 
@@ -36,84 +40,78 @@ void loop() {
   {
     char incomingByte = Serial.read();
     Serial.println(incomingByte);
-    
-    if(incomingByte == 'A')
-    {
-      speedUp();
-    }
-    else if(incomingByte == 'F')
-    {
-      slowDown();
-    }
-    else if(incomingByte == 'S')
-    {
-      stopMotor();
-    }
-    else if(incomingByte == 'M')
-    {
-      maxSpeed();
-    }
-    else if(incomingByte == 'B')
-    {
-      slowestSpeed();
-    }
-    else if(incomingByte == 'U')
-    {
-      up();
-    }
-    else if(incomingByte == 'D')
-    {
-      down();
-    }
-    else {
-      stopMotor();
-    }
+    //vertical stepper motor commands
+    if(incomingByte == 'A')speedUpVert();
+    else if(incomingByte == 'F')slowDownVert();
+    else if(incomingByte == 'S')stopMotorVert();
+    else if(incomingByte == 'M')maxSpeedVert();
+    else if(incomingByte == 'B')slowestSpeedVert();
+    else if(incomingByte == 'U')upVert();
+    else if(incomingByte == 'D')downVert();
+    //Horizontal stepper motor commands
+    else if(incomingByte == 'Q')speedUpHorz();
+    else if(incomingByte == 'W')slowDownHorz();
+    else if(incomingByte == 'E')stopMotorHorz();
+    else if(incomingByte == 'R')maxSpeedHorz();
+    else if(incomingByte == 'T')slowestSpeedHorz();
+    else if(incomingByte == 'Y')upHorz();
+    else if(incomingByte == 'I')downHorz();
   }
+  Serial.println(newSpeed);
     //Serial.println(wobRead);
     OCR2A = newSpeed; //Top value for this button
     tempFloat = OCR2A/2;
     tempInt = int(tempFloat);
     OCR2B = tempInt; //Ontime of the 65Hz signal Initialized to zero
 }
-void slowDown(){
-  if(newSpeed >= 255)
-  {
-    newSpeed = 255;
-  }
-  else{
-    newSpeed = newSpeed + 20;
-  }
-  //incomingByte = NULL;
+//====VERTICAL MOTOR FUNCTIONS===
+void slowDownVert(){
+  Serial.println("Testing");
+  if(newSpeed >= 255) newSpeed = 255;
+  else newSpeed = newSpeed + 20;
 }
-void speedUp(){
-  if(newSpeed <= 20){
-    newSpeed = 20;
-  }
-  else{
-    newSpeed = newSpeed - 20;
-  }
-  //incomingByte = NULL;
-  
+void speedUpVert(){
+  if(newSpeed <= 20) newSpeed = 20;
+  else newSpeed = newSpeed - 20;
 }
-void stopMotor(){
+void stopMotorVert(){
   newSpeed = 0;
-  //incomingByte = NULL 
 }
-void maxSpeed(){
+void maxSpeedVert(){
   newSpeed = 20;
-  //incomingByte = NULL 
 }
-void slowestSpeed(){
+void slowestSpeedVert(){
   newSpeed = 255;
-  //incomingByte = NULL 
 }
-void down(){
-  //digitalWrite(6, LOW);
+void downVert(){
   digitalWrite(36,GO_UP); 
 }
-void up()
-{
-  //digitalWrite(6, HIGH);
+void upVert(){
+  digitalWrite(36, GO_DOWN);
+}
+//===HORIZONTAL MOTOR FUNCTIONS===
+void slowDownHorz(){
+  if(newSpeed >= 255) newSpeed = 255;
+  else newSpeed = newSpeed + 20;
+}
+void speedUpHorz(){
+  Serial.println("I'm in");
+  if(newSpeed <= 20) newSpeed = 20;
+  else newSpeed = newSpeed - 20;
+}
+void stopMotorHorz(){
+  newSpeed = 0;
+}
+void maxSpeedHorz(){
+  newSpeed = 20;
+}
+void slowestSpeedHorz(){
+  newSpeed = 255;
+}
+void downHorz(){
+  digitalWrite(36,GO_UP); 
+}
+void upHorz(){
   digitalWrite(36, GO_DOWN);
 }
     
