@@ -1,18 +1,15 @@
 # SASSY
 SASSY-ARES code repository 
-
-LabVIEWSensorDisplayandDrillControl Rev1.0.1
+Updated by Jonathan Maravilla 6-28-21
+LabVIEWArduinoControls IS NOW THE MAIN LABVIEW VI
 How to Use
-1) Load Incremental_Drill_Speed_REV1.0.0 onto the arduino
-2) Boot up the VI and make sure COM port and COM rate are set to appropriate values.
-3) Click the white arrow on the top left to run the code assuming previous settings have been set. CODE WILL NOT WORK IF YOU TRY TO UPDATE SETTINGS DURING RUN TIME!
-4) Accelerate button speeds up drill by increasing our duty cycle by 10.
-5) Decellerate slows down drill by decreasing our duty cycle by 10.
-6) Emergency stop brings our duty cycle to 0
+1) Load integrated_arduino1 and integrated_Arduino2 to their respective arduinos
+2) Verify their functionality by communicating with the arduinos through the serial port
+3) After functionality has been confirmed, run LabVIEWArduinoControls VISA
+4) Assign COM ports to their respective arduino. To find COM port value, look at the COM port assigned to each Arduino in the Arduino IDE
+5) Run the VI. Data should begin to load after approximately 3 seconds
 
 Changes
-Removed VISA close from all events exceot for LabVIEW Stop as it was causing sporadic loss of control.
-Added our own Emergency stop button in place of LabVIEWs as it caused loss of control as well.
-
+Integrated controls for Arduino 1 and Arduino 2 into one VI
 What's in Progress
-Sensor Visualization and appropriate means of ending LabVIEW's loop to free up the Arduino's COM port
+LabVIEW requires sequential start up and a transition into a producer and consumer module. This is on the bottom of my priorities, however.
